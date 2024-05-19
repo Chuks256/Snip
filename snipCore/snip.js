@@ -1,7 +1,9 @@
+// import required modules
 let cryptoModule=require("crypto");
 let fsModule=require("fs")
 let linkModule=require("./link")
 
+//  define snip class 
 class snip_core{
     constructor(){
         this.sanitize_log();
@@ -26,6 +28,7 @@ class snip_core{
             return true 
     }
 
+    //  function for creating short link 
     create_short_link(link=""){
         let generate_reference=cryptoModule.randomBytes(3).toString("hex");
         let define_link_class=new linkModule(link,generate_reference);
@@ -35,6 +38,7 @@ class snip_core{
         }
     }
 
+    //  function for getting original link based on reference id 
     getOriginalLinkByReference(reference=""){
         let get_data=this.get_snip_log_data();
         for(let original_link_reference of JSON.parse(get_data)){
