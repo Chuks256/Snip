@@ -1,6 +1,6 @@
 
 //  import rquired module 
-let route_Module=require("./routeModule/api_routes");
+let route_Module=require("../routeModule/api_routes");
 let express=require("express");
 let app=express();
 let cors=require('cors')
