@@ -8,7 +8,7 @@ class routeModule{
     //  route to snip url 
     snip_url(req,res){
         let define_snip_module=new snip_core_module();
-        let original_url=req.body.originalUrl;
+        let original_url=req.query.originalUrl;
         let snip_defined_module=define_snip_module.create_short_link(original_url);
         res.json(snip_defined_module);
     }
@@ -20,6 +20,13 @@ class routeModule{
         let snip_defined_module=define_snip_module.getOriginalLinkByReference(url_reference_id);
         res.json(snip_defined_module);
     }
+
+    // get all data 
+    getAllData(req,res){
+        let define_snip_module=new snip_core_module()
+        res.json(define_snip_module.get_all_links());
+    }
+
 }
 
 //  export modules 

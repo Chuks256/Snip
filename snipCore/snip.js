@@ -50,6 +50,11 @@ class snip_core{
            }
         }
     }
+
+    get_all_links(){
+        let get_data=this.get_snip_log_data();
+        return JSON.parse(get_data);
+    }
 }
 
 
