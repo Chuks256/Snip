@@ -10,21 +10,21 @@ class snip_core{
     }
 
     sanitize_log(){
-        let get_data=fsModule.readFileSync("./snip_log.dat",{encoding:"utf-8"});
+        let get_data=fsModule.readFileSync("./snip_log.json",{encoding:"utf-8"});
         if(get_data===""){
-            fsModule.writeFileSync("./snip_log.dat",JSON.stringify([],"",3),{encoding:"utf-8"})
+            fsModule.writeFileSync("./snip_log.json",JSON.stringify([],"",3),{encoding:"utf-8"})
         }
     }
 
     get_snip_log_data(){
-        let get_data=fsModule.readFileSync("./snip_log.dat",{encoding:"utf-8"});
+        let get_data=fsModule.readFileSync("./snip_log.json",{encoding:"utf-8"});
         return get_data;
     }
 
     save_new_data(data){
         let get_data=JSON.parse(this.get_snip_log_data())
             get_data.push(data)
-            fsModule.writeFileSync("./snip_log.dat",JSON.stringify(get_data,"",3),{encoding:"utf-8"})
+            fsModule.writeFileSync("./snip_log.json",JSON.stringify(get_data,"",3),{encoding:"utf-8"})
             return true 
     }
 
