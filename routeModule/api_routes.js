@@ -1,31 +1,50 @@
-
-let snip_core_module=require("../snipCore/snip")
-
+// import required modules
+let cryptoModule=require("crypto");
+let linkModule=require("../snipCore/link")
+let _defined_sql_module=require("../config/db_config")
 
 class routeModule{
-    constructor(){
-    }
     //  route to snip url 
     snip_url(req,res){
-        let define_snip_module=new snip_core_module();
-        let original_url=req.query.originalUrl;
-        let snip_defined_module=define_snip_module.create_short_link(original_url);
-        res.json(snip_defined_module);
+        let generate_reference=cryptoModule.randomBytes(3).toString("hex");
+        let define_link_class=new linkModule(req.query.originalUrl,generate_reference);
+        // define sql query
+        let sql_query=`insert into userlink value('${define_link_class.id}','${define_link_class.reference}','${define_link_class.original_link}')`
+        _defined_sql_module.query(sql_query,(err,result)=>{
+            if(err){
+                throw new Error(err)
+            }
+            if(result){
+                res.json({msg:'link_creation_successful',reference:define_link_class.reference})
+            }
+        })
     }
 
     //  route to get original url 
     getOriginalUrl(req,res){
-        let define_snip_module=new snip_core_module();
-        let url_reference_id=req.params.reference_id;
-        let snip_defined_module=define_snip_module.getOriginalLinkByReference(url_reference_id);
-        res.json(snip_defined_module);
+        let query=`select * from userlink where reference_link='${req.params.reference_id}'`
+        _defined_sql_module.query(query,(err,result)=>{
+            if(err){
+                throw new Error(err)
+            }
+            if(result){
+                res.json(result[0])
+            }
+        })
     }
 
     // get all data 
     getAllData(req,res){
-        let define_snip_module=new snip_core_module()
-        res.json(define_snip_module.get_all_links());
-    }
+        let query=`select * from userlink`
+        _defined_sql_module.query(query,(err,result)=>{
+            if(err){
+                throw new Error(err)
+            }
+            if(result){
+                res.json({msg:'successful', data:result})
+            }
+    })
+}
 
 }
 

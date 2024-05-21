@@ -20,6 +20,7 @@ app.get("/api/getOriginalUrl/:reference_id",defined_route_module.getOriginalUrl)
 app.get("/api/test",(req,res)=>{res.json({msg:"api is working fine"})} )
 app.get("/api/getAllData",defined_route_module.getAllData)
 // config api server 
+
 app.listen(4005,async()=>{
     console.log("snip api server is running")
 })
