@@ -1,7 +1,7 @@
 // import required modules
 let cryptoModule=require("crypto");
 let linkModule=require("../snipCore/link")
-let _defined_sql_module=require("../config/db_config")
+let _defined_sql_module=require("../config/dbconfig")
 
 class routeModule{
     //  route to snip url 
